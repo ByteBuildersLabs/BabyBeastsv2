@@ -35,7 +35,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
     setCurrentImage(gifPath);
     setTimeout(() => {
       setCurrentImage(happy);
-    }, 1000000);
+    }, 3000);
   };
   const showDeathAnimation = () => {
     setCurrentImage(dead);
