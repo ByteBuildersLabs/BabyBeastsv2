@@ -15,6 +15,7 @@ import shower from '../../assets/img/shower.gif';
 import happy from '../../assets/img/happy.gif';
 import dead from '../../assets/img/dead.gif';
 import './main.css';
+import { toast } from "react-hot-toast";
 
 function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
   const beast = useBeast(sdk);
@@ -61,6 +62,25 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
       showDeathAnimation();
     }
   }, [beast?.is_alive]);
+
+  // Helper to wrap Dojo actions with toast
+  const handleAction = async (actionName: string, actionFn: () => Promise<{ transaction_hash: string } | undefined>, animation: string) => {
+    try {
+      triggerGlow();
+      await toast.promise(
+        actionFn(),
+        {
+          loading: `Performing ${actionName}...`,
+          success: `${actionName} completed successfully!`,
+          error: `Failed to perform ${actionName}. Please try again.`,
+        }
+      );
+      showAnimation(animation);
+    } catch (error) {
+      console.error(error);
+      toast.error(`An error occurred while performing ${actionName}`);
+    }
+  };
 
   return (
     <>
@@ -143,90 +163,44 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
                   </div>
                 </div>
                 <div className="actions mb-0">
-                  <Button
-                    onClick={async () => {
-                      if (account) {
-                        await client.actions.feed(account as Account);
-                      }
-                      if (beast.is_alive) {
-                        triggerGlow();
-                        showAnimation(eat);
-                      } 
-                    }}
+                <Button
+                    onClick={() => handleAction("Feed", () => client.actions.feed(account as Account), eat)}
                     disabled={!beast.is_alive}
                     className="flex items-center button"
                   >
                     <Pizza /> Feed
                   </Button>
                   <Button
-                    onClick={async () => {
-                      if (account) {
-                        await client.actions.sleep(account as Account);
-                      }
-                      if (beast.is_alive){
-                        triggerGlow();
-                        showAnimationWithoutTimer(sleep);
-                      } 
-                    }}
+                    onClick={() => handleAction("Sleep", () => client.actions.sleep(account as Account), sleep)}
                     disabled={!beast.is_alive}
                     className="flex items-center button"
                   >
                     <Coffee /> Sleep
                   </Button>
                   <Button
-                    onClick={async () => {
-                      if (account) {
-                        await client.actions.play(account as Account);
-                      }
-                      if (beast.is_alive) {
-                        triggerGlow();
-                        showAnimation(play);
-                      }
-                    }}
+                    onClick={() => handleAction("Clean", () => client.actions.clean(account as Account), shower)}
+                    disabled={!beast.is_alive}
+                    className="flex items-center button"
+                  >
+                    <Bath /> Clean
+                  </Button>
+                  <Button
+                    onClick={() => handleAction("Play", () => client.actions.play(account as Account), play)}
                     disabled={!beast.is_alive}
                     className="flex items-center button"
                   >
                     <Gamepad2 /> Play
                   </Button>
                   <Button
-                    onClick={async () => {
-                      if (account) {
-                        await client.actions.clean(account as Account);
-                      }
-                      if (beast.is_alive) {
-                        triggerGlow();
-                        showAnimation(shower);
-                      }
-                    }}
-                    disabled={!beast.is_alive}
-                    className="flex items-center  button"
-                  >
-                    <Bath /> Clean
-                  </Button>
-                  <Button
-                    onClick={async () => {
-                      if (account) {
-                        await client.actions.awake(account as Account);
-                      }
-                      if (beast.is_alive) {
-                        triggerGlow();
-                        showAnimation(happy);
-                      }
-                    }}
-                    disabled={!beast.is_alive}
+                    onClick={() => handleAction("Wake up", () => client.actions.revive(account as Account), happy)}
+                    disabled={beast.is_alive}
                     className="flex items-center button"
                   >
-                    <Sun /> Wake Up
+                    <Sun /> Wake up
                   </Button>
                   <Button
-                    onClick={async () => {
-                      if (account) {
-                        await client.actions.revive(account as Account);
-                      }
-                      triggerGlow();
-                      setCurrentImage(happy);
-                    }}
-                    disabled={beast.is_alive}
+                    onClick={() => handleAction("Revive", () => client.actions.revive(account as Account), happy)}
+                    disabled={!beast.is_alive}
                     className="flex items-center button"
                   >
                     <Sun /> Revive

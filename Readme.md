@@ -73,3 +73,4 @@ Raise your BabyBeast, unlock its potential, and dive into the magical world of E
 - Mintelo once it is at level 5 (compatibility for our next games)
 - 5 different Beasts with all their animations.
 - Professor Oak: Who has the lore of the game and all the knowledge of the beasts
+
