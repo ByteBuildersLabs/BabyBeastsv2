@@ -13,11 +13,24 @@ import initials from "../../data/initials.tsx";
 import Hints from "../Hints/index.tsx";
 import dead from '../../assets/img/dead.gif';
 import './main.css';
+import useSound from 'use-sound';
+import feedSound from '../../assets/sounds/bbeating.mp3';
+import cleanSound from '../../assets/sounds/bbshower.mp3';
+import sleepSound from '../../assets/sounds/bbsleeps.mp3';
+import playSound from '../../assets/sounds/bbjump.mp3';
+import reviveSound from '../../assets/sounds/bbrevive.mp3';
 
 function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
   const beast = useBeast(sdk);
   const loadingTime = 6000;
   const [isLoading, setIsLoading] = useState(false);
+
+  // Add sound hooks
+  const [playFeed] = useSound(feedSound, { volume: 0.7, preload: true });
+  const [playClean] = useSound(cleanSound, { volume: 0.7, preload: true });
+  const [playSleep] = useSound(sleepSound, { volume: 0.7, preload: true });
+  const [playPlay] = useSound(playSound, { volume: 0.7, preload: true });
+  const [playRevive] = useSound(reviveSound, { volume: 0.7, preload: true });
 
   const {
     setup: { client },
@@ -66,6 +79,19 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
   const handleAction = async (actionName: string, actionFn: () => Promise<{ transaction_hash: string } | undefined>, animation: string) => {
     setIsLoading(true);
     showAnimation(animation);
+
+    // Trigger sound based on action
+    switch(actionName) {
+      case 'Feed': playFeed(); break;
+      case 'Clean': playClean(); break;
+      case 'Sleep': playSleep(); break;
+      case 'Play': playPlay(); break;
+      case 'Revive': playRevive(); break;
+      case 'Wake up': 
+        console.warn('Missing sound for awake action');
+        break;
+    }
+
     try {
       await toast.promise(
         actionFn(),
