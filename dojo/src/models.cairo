@@ -4,6 +4,7 @@ use starknet::ContractAddress;
 #[dojo::model]
 pub struct Beast {
     #[key]
+    pub beast_id: u128,
     pub player: ContractAddress,
     pub specie: u32,
     pub is_alive: bool,

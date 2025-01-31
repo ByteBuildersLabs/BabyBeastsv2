@@ -17,6 +17,7 @@ pub mod actions {
     use super::{IActions};
     use starknet::{ContractAddress, get_caller_address};
     use babybeasts::models::{Beast};
+    use babybeasts::models::{BeastId};
 
     use dojo::model::{ModelStorage, ModelValueStorage};
     use dojo::event::EventStorage;
@@ -26,9 +27,9 @@ pub mod actions {
         fn spawn(ref self: ContractState, specie: u32) {
             let mut world = self.world(@"babybeasts");
             let player = get_caller_address();
-
-            let initial_stats = Beast {
+            let mut initial_stats = Beast {
                 player: player,
+                beast_id: 0,
                 specie: specie,
                 is_alive: true,
                 is_awake: true,
@@ -48,6 +49,15 @@ pub mod actions {
                 next_level_experience: 60,
             };
 
+            let mut id: BeastId = world.read_model(1);
+            if id.id == 1 {
+                id.beast_id = id.beast_id + 1;
+                world.write_model(@id);
+                initial_stats.beast_id = id.beast_id;
+            } else {
+                create_initial_id(ref self);
+                initial_stats.beast_id = 1;
+            }
             world.write_model(@initial_stats);
         }
 
@@ -221,5 +231,13 @@ pub mod actions {
                 world.write_model(@beast);
             }
         }
+    }
+    fn create_initial_id(ref self: ContractState) {
+        let mut world = self.world(@"babybeasts");
+        let initial_id = BeastId {
+            id: 1,
+            beast_id: 1,
+        };
+        world.write_model(@initial_id);
     }
 }
