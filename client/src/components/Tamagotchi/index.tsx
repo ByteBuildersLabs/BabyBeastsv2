@@ -18,6 +18,7 @@ import cleanSound from '../../assets/sounds/bbshower.mp3';
 import sleepSound from '../../assets/sounds/bbsleeps.mp3';
 import playSound from '../../assets/sounds/bbjump.mp3';
 import reviveSound from '../../assets/sounds/bbrevive.mp3';
+import MiniGamesModal from "../MiniGamesModal/index.tsx";
 import './main.css';
 
 function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
@@ -26,6 +27,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
   const [isLoading, setIsLoading] = useState(false);
 
   // Add sound hooks
+  const [isOpenMiniGames, setIsOpenMiniGames] = useState(false);
   const [playFeed] = useSound(feedSound, { volume: 0.7, preload: true });
   const [playClean] = useSound(cleanSound, { volume: 0.7, preload: true });
   const [playSleep] = useSound(sleepSound, { volume: 0.7, preload: true });
@@ -210,7 +212,10 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
                     <Bath /> Clean
                   </Button>
                   <Button
-                    onClick={() => handleAction("Play", () => client.actions.play(account as Account), initials[beast.specie - 1].playPicture)}
+                    onClick={() => {
+                      setIsOpenMiniGames(true);
+                      /* handleAction("Play", () => client.actions.play(account as Account), initials[beast.specie - 1].playPicture) */ // action to be added when we have the games
+                    }}
                     disabled={isLoading || !beast.is_alive}
                     className="flex items-center button"
                   >
@@ -237,6 +242,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
           </Card>
         }</>
       </div>
+      <MiniGamesModal isOpen={isOpenMiniGames} onClose={() => setIsOpenMiniGames(false)} onAction={() => {}} />
     </>
   );
 }

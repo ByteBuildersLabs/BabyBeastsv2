@@ -32,6 +32,7 @@
     "react-hot-toast": "^2.5.1",
     "react-router-dom": "^6.2.1",
     "starknet": "6.11.0",
+    "swiper": "^11.2.1",
     "use-sound": "^4.0.3",
     "uuid": "^10.0.0",
     "vite-plugin-pwa": "^0.20.0",
