@@ -15,6 +15,7 @@ import Header from "./components/Header/index.tsx";
 import Bag from "./components/Bag/index.tsx";
 import Chat from "./components/Chat/index.tsx";
 import "./index.css";
+import MemoryChallenge from "./components/MemoryChallenge/index.tsx";
 
 function provider() {
   return new RpcProvider({
@@ -63,6 +64,7 @@ async function main() {
                 <Route path='/bag' element={<Bag sdk={sdk} />} />
                 <Route path='/play' element={<Tamagotchi sdk={sdk} />} />
                 <Route path='/chat' element={<Chat />} />
+                <Route path='/memoryChallenge' element={<MemoryChallenge />} />
               </Routes>
             </Router>
           </StarknetConfig>
