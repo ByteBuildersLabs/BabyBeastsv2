@@ -6,10 +6,23 @@ import ControllerConnectButton from "../CartridgeController/ControllerConnectBut
 import Egg from "../../assets/img/egg.gif";
 import Hints from "../Hints/index.tsx";
 import './main.css';
+import { useState } from "react";
+import Joyride, { Placement } from "react-joyride";
 
 function SpawnBeast() {
   const { spawn } = useSystemCalls();
   const { account } = useAccount();
+  const [{ run, steps }] = useState({
+    run: true,
+    steps: [
+      {
+        content: <h2>Spawn your creature!</h2>,
+        placement: "button" as Placement,
+        target: "#step-1",
+        title: "Baby beast Toturial",
+      },
+    ],
+  });
 
   const navigate = useNavigate();
 
@@ -25,6 +38,25 @@ function SpawnBeast() {
 
   return (
     <div className="spawn-beast">
+       <Joyride
+        run={run}
+        steps={steps}
+        hideCloseButton
+        scrollToFirstStep
+        showProgress
+        showSkipButton
+        styles={{
+          options: {
+            backgroundColor: "#370001",
+            overlayColor: "rgba(79, 26, 0, 0.4)",
+            primaryColor: "#000",
+            textColor: "white",
+            width: 500,
+            zIndex: 1000,
+          },
+        }}
+      />
+
       <div className='d-flex'>
         <p className={'title'}>
           Collect them all!

@@ -8,8 +8,14 @@ pnpm-debug.log*
 lerna-debug.log*
 
 # mkcert certificates
+
+# MAC
 mkcert+1-key.pem
 mkcert+1.pem
+
+# Windows
+localhost-key.pem
+localhost.pem
 
 node_modules
 dist

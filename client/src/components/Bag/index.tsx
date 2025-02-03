@@ -5,7 +5,9 @@ import { Beast, Schema } from "../../dojo/bindings.ts";
 import { useBeast } from '../../hooks/useBeasts.tsx';
 import ControllerConnectButton from '../CartridgeController/ControllerConnectButton.tsx';
 import initials from "../../data/initials.tsx";
-import './main.css';
+import "./main.css";
+import Joyride, { Placement } from "react-joyride";
+import { useState } from "react";
 
 function Bag({ sdk }: { sdk: SDK<Schema> }) {
   const { beasts } = useBeast(sdk);
@@ -68,6 +70,18 @@ function Bag({ sdk }: { sdk: SDK<Schema> }) {
       bodyElement.style.backgroundSize = 'cover';
     }
   }, []);
+
+  const [{ run, steps }] = useState({
+    run: true,
+    steps: [
+      {
+        content: <h2>Caring for your creature!</h2>,
+        placement: "right" as Placement,
+        target: "#step-2",
+        title: "Baby beast Toturial",
+      },
+    ],
+  });
 
   return (
     <div className="bag">

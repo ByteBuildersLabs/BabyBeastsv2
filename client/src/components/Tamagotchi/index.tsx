@@ -21,6 +21,7 @@ import playSound from '../../assets/sounds/bbjump.mp3';
 import reviveSound from '../../assets/sounds/bbrevive.mp3';
 import toggle from '../../assets/img/x.svg';
 import './main.css';
+import Joyride, { Placement } from "react-joyride";
 
 
 function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
@@ -59,12 +60,14 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
   const { account } = useAccount();
 
   // Animations
-  const [currentImage, setCurrentImage] = useState(beast ? initials[beast.specie - 1].idlePicture : '');
+  const [currentImage, setCurrentImage] = useState(
+    beast ? initials[beast.specie - 1].idlePicture : ""
+  );
   const [firstTime, isFirstTime] = useState(true);
 
   useEffect(() => {
     if (firstTime && beast) {
-      setCurrentImage(beast ? initials[beast.specie - 1].idlePicture : '')
+      setCurrentImage(beast ? initials[beast.specie - 1].idlePicture : "");
       isFirstTime(false);
     }
   }, [beast]);
@@ -72,7 +75,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
   const showAnimation = (gifPath: string) => {
     setCurrentImage(gifPath);
     setTimeout(() => {
-      setCurrentImage(beast ? initials[beast.specie - 1].idlePicture : '');
+      setCurrentImage(beast ? initials[beast.specie - 1].idlePicture : "");
     }, loadingTime);
   };
   const showDeathAnimation = () => {
@@ -96,7 +99,11 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
   }, [beast?.is_alive]);
 
   // Helper to wrap Dojo actions with toast
-  const handleAction = async (actionName: string, actionFn: () => Promise<{ transaction_hash: string } | undefined>, animation: string) => {
+  const handleAction = async (
+    actionName: string,
+    actionFn: () => Promise<{ transaction_hash: string } | undefined>,
+    animation: string
+  ) => {
     setIsLoading(true);
     showAnimation(animation);
 
@@ -114,9 +121,39 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
     actionFn();
   };
 
+  const [{ run, steps }] = useState({
+    run: true,
+    steps: [
+      {
+        content: <h2>Caring for your creature!</h2>,
+        placement: "right" as Placement,
+        target: "#step-3",
+        title: "Baby beast Toturial",
+      },
+    ],
+  });
+
   return (
     <>
       <div className="tamaguchi">
+      <Joyride
+          run={run}
+          steps={steps}
+          hideCloseButton
+          scrollToFirstStep
+          showProgress
+          showSkipButton
+          styles={{
+            options: {
+              backgroundColor: "#370001",
+              overlayColor: "rgba(79, 26, 0, 0.4)",
+              primaryColor: "#000",
+              textColor: "white",
+              width: 500,
+              zIndex: 1000,
+            },
+          }}
+        />
         <>{beast &&
           <Card style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
             <Status beast={beast} />
