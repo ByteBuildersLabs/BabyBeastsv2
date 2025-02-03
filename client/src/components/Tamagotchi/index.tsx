@@ -22,6 +22,7 @@ import sleepSound from '../../assets/sounds/bbsleeps.mp3';
 import playSound from '../../assets/sounds/bbjump.mp3';
 import reviveSound from '../../assets/sounds/bbrevive.mp3';
 import monster from '../../assets/img/logo.svg';
+import MiniGamesModal from "../MiniGamesModal/index.tsx";
 import './main.css';
 
 function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
@@ -34,6 +35,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
   const [showStats, setShowStats] = useState(false);
 
   // Add sound hooks
+  const [isOpenMiniGames, setIsOpenMiniGames] = useState(false);
   const [playFeed] = useSound(feedSound, { volume: 0.7, preload: true });
   const [playClean] = useSound(cleanSound, { volume: 0.7, preload: true });
   const [playSleep] = useSound(sleepSound, { volume: 0.7, preload: true });
@@ -109,7 +111,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
       case 'Feed': playFeed(); break;
       case 'Clean': playClean(); break;
       case 'Sleep': playSleep(); break;
-      case 'Play': playPlay(); break;
+      case 'Play': setIsOpenMiniGames(true); /* playPlay(); */ break;
       case 'Revive': playRevive(); break;
       case 'Wake up':
         console.warn('Missing sound for awake action');
@@ -147,6 +149,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
           name={initials[beast?.specie - 1]?.name}
         />
       </div>
+      <MiniGamesModal isOpen={isOpenMiniGames} onClose={() => setIsOpenMiniGames(false)} onAction={() => {}} />
     </>
   );
 }

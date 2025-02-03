@@ -2,13 +2,16 @@
 import { useEffect } from "react";
 import { useAccount } from "@starknet-react/core";
 import fight from '../../assets/img/banner.jpeg';
-import Footer from "../Footer/index.tsx";
 import SpawnBeast from "../SpawnBeast/index.tsx";
 import { DeveloperCode } from "../DeveloperCode/index.tsx";
+import Footer from "../Footer/index.tsx";
 
 function Cover() {
   const { account } = useAccount();
 
+  const handleConnect = () => {
+    (document.querySelector('.navbar-toggler') as HTMLElement)?.click();
+  }
   useEffect(() => {
     const bodyElement = document.querySelector('.body') as HTMLElement;
     if (bodyElement) {
@@ -29,9 +32,14 @@ function Cover() {
                 <img className="cover-pic" src={fight} alt="" />
               </div>
               <DeveloperCode />
-              <Footer />
             </div>
-          </>
+            <button className="connect-btn" onClick={handleConnect}>
+              Connect and start Play
+            </button>
+
+            <Footer />
+
+        </>
       }
     </>
   )
