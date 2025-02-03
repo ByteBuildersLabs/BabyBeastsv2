@@ -20,6 +20,7 @@ import Chat from "./components/Chat/index.tsx";
 import AppLayout from "./components/Layouts/AppLayout.tsx";
 
 import "./index.css";
+import MemoryChallenge from "./components/MemoryChallenge/index.tsx";
 
 function provider() {
   return new RpcProvider({
@@ -62,15 +63,10 @@ async function main() {
           >
             <Router>
               <Routes>
-                {/* Cover route without header*/}
-                <Route path="/" element={<NewCover />} />
-                
-                {/* Internal routes using layout for header */}
-                <Route element={<AppLayout />}>
-                  <Route path="/bag" element={<Bag sdk={sdk} />} />
-                  <Route path="/play/:beastId" element={<Tamagotchi sdk={sdk} />} />
-                  <Route path="/chat" element={<Chat />} />
-                </Route>
+                <Route path='/' element={<Cover />}/>
+                <Route path='/bag' element={<Bag sdk={sdk} />} />
+                <Route path='/play' element={<Tamagotchi sdk={sdk} />} />
+                <Route path='/chat' element={<Chat />} />
               </Routes>
             </Router>
           </StarknetConfig>
