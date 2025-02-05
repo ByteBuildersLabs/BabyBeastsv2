@@ -4,10 +4,11 @@ trait IActions<T> {
     // Player methods
     fn spawn_player(ref self: T);
     fn set_current_beast(ref self: T, beast_id: u32);
+    fn add_initial_food(ref self: T);
     // Beast Methods
     fn spawn(ref self: T, specie: u32);
     fn decrease_stats(ref self: T);
-    fn feed(ref self: T);
+    fn feed(ref self: T, food_id: u8);
     fn sleep(ref self: T);
     fn awake(ref self: T);
     fn play(ref self: T);
@@ -30,7 +31,10 @@ pub mod actions {
     use babybeasts::models::beast_stats::{BeastStats};
     use babybeasts::models::beast_status::{BeastStatus};
     use babybeasts::models::player::{Player};
+    use babybeasts::models::food::{Food};
     
+    // types import
+    use babybeasts::types::food::{FoodType};
 
     // Constants import
     use babybeasts::constants;
@@ -61,10 +65,8 @@ pub mod actions {
 
             let new_player = Player {
                 address: caller, 
-                remaining_food: constants::MAX_FOOD_AMOUNT,
                 current_beast_id: 0
             };
-
             world.write_model(@new_player);
         }
 
@@ -76,6 +78,35 @@ pub mod actions {
             player.current_beast_id = beast_id;
 
             world.write_model(@player);
+        }
+
+        fn add_initial_food(ref self: ContractState) {
+            let mut world = self.world(@"babybeasts");
+            let caller = get_caller_address();
+
+            let apples = Food {
+                player: caller,
+                id: FoodType::Apple.into(),
+                name: FoodType::Apple.into(),
+                amount: constants::MAX_FOOD_AMOUNT
+            };
+            world.write_model(@apples);
+
+            let cookies = Food {
+                player: caller,
+                id: FoodType::Cookie.into(),
+                name: FoodType::Cookie.into(),
+                amount: constants::MAX_FOOD_AMOUNT
+            };
+            world.write_model(@cookies);
+
+            let fishes = Food {
+                player: caller,
+                id: FoodType::Fish.into(),
+                name: FoodType::Fish.into(),
+                amount: constants::MAX_FOOD_AMOUNT
+            };
+            world.write_model(@fishes);
         }
 
         fn spawn(ref self: ContractState, specie: u32) {
@@ -158,7 +189,7 @@ pub mod actions {
             }
         }
 
-        fn feed(ref self: ContractState) {
+        fn feed(ref self: ContractState, food_id: u8) {
             let mut world = self.world(@"babybeasts");
 
             let player_address = get_caller_address();
@@ -167,16 +198,22 @@ pub mod actions {
 
             let mut beast: Beast = world.read_model((player_address, current_beast_id));
 
+            let mut food: Food = world.read_model((player_address,food_id));
+
             if beast.status.is_alive == true {
-                beast.status.hunger = beast.status.hunger + 30;
-                if beast.status.hunger > constants::MAX_HUNGER {
-                    beast.status.hunger = constants::MAX_HUNGER;
+                if food.amount > 0 {
+                    food.amount - 1;
+                    beast.status.hunger = beast.status.hunger + 30;
+                    if beast.status.hunger > constants::MAX_HUNGER {
+                        beast.status.hunger = constants::MAX_HUNGER;
+                    }
+                    beast.status.energy = beast.status.energy + 10;
+                    if beast.status.energy > constants::MAX_ENERGY {
+                        beast.status.energy = constants::MAX_ENERGY;
+                    }
+                    world.write_model(@food);
+                    world.write_model(@beast);
                 }
-                beast.status.energy = beast.status.energy + 10;
-                if beast.status.energy > constants::MAX_ENERGY {
-                    beast.status.energy = constants::MAX_ENERGY;
-                }
-                world.write_model(@beast);
             }
         }
 
