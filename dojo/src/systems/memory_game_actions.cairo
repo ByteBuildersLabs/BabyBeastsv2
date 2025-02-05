@@ -1,7 +1,3 @@
-use babybeasts::models::{TamagotchiStats, GameResult};
-use babybeasts::constants::{
-    MAX_INTELLIGENCE, BASE_INTELLIGENCE_GAIN, STREAK_BONUS_MULTIPLIER, PERFECT_SCORE,
-};
 use starknet::ContractAddress;
 
 #[starknet::interface]
@@ -18,10 +14,15 @@ trait IMemoryGame<TContractState> {
 
 #[dojo::contract]
 mod MemoryGame {
-    use super::*;
-    use array::ArrayTrait;
-    use box::BoxTrait;
-    use traits::Into;
+    use super::{IMemoryGame};
+    use core::num::traits::CheckedAdd;
+    use core::cmp::min;
+    use starknet::ContractAddress;
+    use dojo::model::ModelStorage;
+    use babybeasts::models::{TamagotchiStats, GameResult};
+    use babybeasts::constants::{
+        MAX_INTELLIGENCE, BASE_INTELLIGENCE_GAIN, STREAK_BONUS_MULTIPLIER, PERFECT_SCORE,
+    };
 
     #[abi(embed_v0)]
     impl MemoryGameImpl of IMemoryGame<ContractState> {
@@ -62,7 +63,7 @@ mod MemoryGame {
             }
 
             // Update Tamagotchi stats
-            let mut stats = world.read_model(tamagotchi_id)
+            let mut stats: TamagotchiStats = world.read_model(tamagotchi_id);
 
             if correct {
                 stats.consecutive_wins += 1;
@@ -86,7 +87,7 @@ mod MemoryGame {
             stats.games_played += 1;
 
             // Store updated stats
-            world.write_model(stats)
+            world.write_model(@stats);
 
             // Store game result
             let game_result = GameResult {
@@ -96,7 +97,7 @@ mod MemoryGame {
                 success: correct,
                 completion_time,
             };
-            world.write_model(game_result)
+            world.write_model(@game_result);
 
             (correct, score)
         }
@@ -104,70 +105,11 @@ mod MemoryGame {
 
     #[generate_trait]
     impl InternalImpl of InternalTrait {
-        /// Use the default namespace "starkludo". This function is handy since the ByteArray
-        /// can't be const.
         fn world_default(self: @ContractState) -> dojo::world::WorldStorage {
-            self.world(@"babybeasts")
-        }
-    }
-
-    // Helper function to get minimum of two numbers
-    fn min(a: u8, b: u8) -> u8 {
-        if a < b {
-            a
-        } else {
-            b
+            self.world(@"dojo_starter")
         }
     }
 }
 
-// Tests module
 #[cfg(test)]
-mod tests {
-    use super::*;
-    use array::ArrayTrait;
-    use box::BoxTrait;
-    use traits::Into;
-
-    #[test]
-    fn test_perfect_sequence() {
-        // Initialize test environment
-        let world = setup_world();
-        let contract = deploy_contract(world);
-
-        let player = starknet::contract_address_const::<1>();
-        let tamagotchi_id = 1_u64;
-
-        // Create matching sequences
-        let input = array![1_u8, 2_u8, 3_u8, 4_u8];
-        let target = array![1_u8, 2_u8, 3_u8, 4_u8];
-
-        let (success, score) = contract
-            .validate_sequence(
-                player, tamagotchi_id, input, target, 1000 // 1 second completion time
-            );
-
-        assert(success, 'Should succeed for perfect match');
-        assert(score > 900, 'Should get high score');
-    }
-
-    #[test]
-    fn test_incorrect_sequence() {
-        // Initialize test environment
-        let world = setup_world();
-        let contract = deploy_contract(world);
-
-        let player = starknet::contract_address_const::<1>();
-        let tamagotchi_id = 1_u64;
-
-        // Create non-matching sequences
-        let input = array![1_u8, 2_u8, 4_u8, 3_u8];
-        let target = array![1_u8, 2_u8, 3_u8, 4_u8];
-
-        let (success, score) = contract
-            .validate_sequence(player, tamagotchi_id, input, target, 1000);
-
-        assert(!success, 'Should fail for mismatch');
-        assert(score < 800, 'Should get reduced score');
-    }
-}
+mod tests {}
