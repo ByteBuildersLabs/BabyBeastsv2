@@ -1,15 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
 @font-face {
-  font-family: 'Kallisto';
-  src: url('./assets/fonts/Kallisto-Medium.otf');
+  font-family: "Kallisto";
+  src: url("./assets/fonts/Kallisto-Medium.otf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Kallisto';
-  src: url('./assets/fonts/Kallisto-Bold.otf');
+  font-family: "Kallisto";
+  src: url("./assets/fonts/Kallisto-Bold.otf");
   font-weight: bold;
   font-style: bold;
 }
@@ -20,7 +20,11 @@
   width: 100vw;
   height: 100dvh;
   background-color: #000;
-  background-image: linear-gradient(rgba(137, 26, 40, 0.5), rgba(137, 26, 40, 0.5)), url('./assets/img/background.png');
+  background-image: linear-gradient(
+      rgba(137, 26, 40, 0.5),
+      rgba(137, 26, 40, 0.5)
+    ),
+    url("./assets/img/background.png");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
@@ -32,44 +36,50 @@
 }
 
 .body.day {
-  background-image: url('./assets/img/daybackground.png');
+  background-image: url("./assets/img/daybackground.png");
 }
 
 .body.night {
-  background-image: url('./assets/img/nightbackground.png');
+  background-image: url("./assets/img/nightbackground.png");
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Kallisto';
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Kallisto";
 }
 
 h2 {
   font-size: 30px;
-  color: #ECECDA;
+  color: #ececda;
 }
 
 a,
 a:active,
 a:visited {
   text-decoration: none;
-  color: #ECECDA;
+  color: #ececda;
   font-family: "Montserrat", serif;
 }
 
-p, span {
+p,
+span {
   font-family: "Montserrat", serif;
 }
 
 .input {
-  font-family: 'Kallisto';
+  font-family: "Kallisto";
   border-radius: 30px;
   padding-right: 10px;
   margin: 0;
   width: 100%;
   height: 50px;
   font-size: 16px;
-  background: linear-gradient(to right, #85002A, #D1093D);
-  color: #ECECDA;
+  background: linear-gradient(to right, #85002a, #d1093d);
+  color: #ececda;
   border: 0;
   border-radius: 10px;
   transition: all 0.25s ease;
@@ -77,20 +87,22 @@ p, span {
 }
 
 .input::placeholder {
-  color: #ECECDA;
-  font-family: 'Kallisto';
+  color: #ececda;
+  font-family: "Kallisto";
 }
 
 .button {
-  background: linear-gradient(to right, #85002A, #D1093D); 
-  color: #ECECDA; 
+  background: linear-gradient(to right, #85002a, #d1093d);
+  color: #ececda;
   border: none;
   border-radius: 25px;
   font-size: 18px;
-  font-family: 'Kallisto', sans-serif; 
+  font-family: "Kallisto", sans-serif;
   text-transform: uppercase;
-  cursor: pointer; 
-  transition: background 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    transform 0.2s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   font-weight: bold;
   display: flex;
@@ -100,12 +112,12 @@ p, span {
 }
 
 .button:hover {
-  background: linear-gradient(to right, #95033A, #E11A4D); 
-  transform: translateY(-2px); 
+  background: linear-gradient(to right, #95033a, #e11a4d);
+  transform: translateY(-2px);
 }
 
 .button:active {
-  background: linear-gradient(to right, #B00833, #6E0022); 
+  background: linear-gradient(to right, #b00833, #6e0022);
   transform: translateY(0);
 }
 
@@ -164,7 +176,7 @@ p, span {
 
 .info {
   font-size: 12px;
-  color: #ECECDA;
+  color: #ececda;
   font-weight: bold;
   text-align: center;
 }
@@ -175,24 +187,24 @@ p, span {
   font-size: 18px;
   margin: 0;
   padding-right: 5px;
-  color: #ECECDA;
+  color: #ececda;
 }
 
 .title span {
   font-size: 18px;
-  color: #ECECDA;
+  color: #ececda;
 }
 
-.cover .connect-btn{
+.cover .connect-btn {
   height: 60px;
   text-align: center;
   background-color: #370001;
   border: 2px solid #e4a101;
   border-radius: 10px;
-  color: #ECECDA;
+  color: #ececda;
   width: 100%;
   font-size: 18px;
-  font-family: 'Kallisto';
+  font-family: "Kallisto";
 }
 
 .connect-btn,
@@ -200,10 +212,10 @@ p, span {
 .connect-btn:visited,
 .connect-btn:focus {
   border: 0;
-  font-family: 'Kallisto';
+  font-family: "Kallisto";
   font-size: 12px;
   background-color: rgba(55, 0, 1, 0.5);
-  color: #ECECDA;
+  color: #ececda;
   border-radius: 10px;
   text-align: center;
   transition: all 0.25s;
@@ -224,7 +236,7 @@ p, span {
 
 #_rht_toaster div div {
   background-color: rgba(55, 0, 1, 0.5) !important;
-  color: #ECECDA;
+  color: #ececda;
   border-radius: 3px !important;
   font-weight: bold !important;
   border-radius: 5px;

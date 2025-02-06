@@ -45,7 +45,7 @@ async function main() {
         revision: "1",
       },
     },
-    schema
+    schema,
   );
 
   const rootElement = document.getElementById("root");
@@ -64,11 +64,14 @@ async function main() {
               <Routes>
                 {/* Cover route without header*/}
                 <Route path="/" element={<NewCover />} />
-                
+
                 {/* Internal routes using layout for header */}
                 <Route element={<AppLayout />}>
                   <Route path="/bag" element={<Bag sdk={sdk} />} />
-                  <Route path="/play/:beastId" element={<Tamagotchi sdk={sdk} />} />
+                  <Route
+                    path="/play/:beastId"
+                    element={<Tamagotchi sdk={sdk} />}
+                  />
                   <Route path="/chat" element={<Chat />} />
                 </Route>
               </Routes>
@@ -76,7 +79,7 @@ async function main() {
           </StarknetConfig>
         </DojoContextProvider>
       </StrictMode>,
-      rootElement
+      rootElement,
     );
   }
 }

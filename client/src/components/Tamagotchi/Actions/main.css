@@ -18,7 +18,7 @@
   font-size: 16px;
   margin-bottom: 6px;
   background-color: transparent;
-  color: #ECECDA;
+  color: #ececda;
   font-weight: bold;
   text-transform: uppercase;
   position: relative;
@@ -26,41 +26,41 @@
 }
 
 .actions button:nth-child(1) {
-  border: 3px solid #FF7E7E;
+  border: 3px solid #ff7e7e;
 }
 .actions button:nth-child(2) {
-  border: 3px solid #EE69FF;
+  border: 3px solid #ee69ff;
 }
 .actions button:nth-child(3) {
-  border: 3px solid #71E4FF;
+  border: 3px solid #71e4ff;
 }
 .actions button:nth-child(4) {
-  border: 3px solid #B0FF9F;
+  border: 3px solid #b0ff9f;
 }
 .actions button:nth-child(5) {
-  border: 3px solid #FFF362;
+  border: 3px solid #fff362;
 }
 .actions button:nth-child(6) {
   border: 3px solid #000000;
 }
 
 .actions button:nth-child(1):hover {
-  box-shadow: 0 0 30px #FF7E7E;
+  box-shadow: 0 0 30px #ff7e7e;
 }
 .actions button:nth-child(2):hover {
-  box-shadow: 0 0 30px #EE69FF;
+  box-shadow: 0 0 30px #ee69ff;
 }
 .actions button:nth-child(3):hover {
-  box-shadow: 0 0 30px #71E4FF;
+  box-shadow: 0 0 30px #71e4ff;
 }
 .actions button:nth-child(4):hover {
-  box-shadow: 0 0 30px #B0FF9F;
+  box-shadow: 0 0 30px #b0ff9f;
 }
 .actions button:nth-child(5):hover {
-  box-shadow: 0 0 30px  #FFF362;
+  box-shadow: 0 0 30px #fff362;
 }
 .actions button:nth-child(6):hover {
-  box-shadow: 0 0 30px  #000000;
+  box-shadow: 0 0 30px #000000;
 }
 
 .actions button:disabled {

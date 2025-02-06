@@ -1,9 +1,9 @@
-import { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import './main.css';
+import { useState, useRef, useEffect } from "react";
 import MessageComponent, { Message } from "../ui/message";
-import ThinkingDots from '../ui/thinking-dots';
-import message from '../../assets/img/message.svg';
+import ThinkingDots from "../ui/thinking-dots";
+import message from "../../assets/img/message.svg";
+import "./main.css";
 
 interface ApiError {
   message: string;
@@ -56,12 +56,15 @@ function Chat() {
       console.error("Error sending message:", error);
       setError({
         message: "Oops! Couldn't get a response. Please try again in a moment.",
-        status: 500
+        status: 500,
       });
-      setMessages((prevMessages) => [...prevMessages, {
-        user: "System",
-        text: "Failed to get response. Please try again."
-      }]);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        {
+          user: "System",
+          text: "Failed to get response. Please try again.",
+        },
+      ]);
     } finally {
       setIsLoading(false);
       restoreFocus();
@@ -87,18 +90,18 @@ function Chat() {
             disabled={isLoading}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key === 'Enter' && !e.shiftKey) {
+              if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
                 sendMessage();
               }
             }}
             maxLength={MAX_MESSAGE_LENGTH}
           />
-          <button 
-            type="button" 
-            onClick={sendMessage} 
+          <button
+            type="button"
+            onClick={sendMessage}
             disabled={isLoading}
-            className={`button ${isLoading ? 'loading' : ''}`}
+            className={`button ${isLoading ? "loading" : ""}`}
           >
             <img src={message} />
           </button>

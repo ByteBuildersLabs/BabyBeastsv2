@@ -1,5 +1,5 @@
 .tamaguchi {
-  overflow-y: auto; 
+  overflow-y: auto;
   background-color: transparent;
   margin: auto;
   width: 100%;
@@ -7,7 +7,7 @@
 }
 
 .scenario {
-  height: 30vh;
+  height: 19vh;
   background-size: cover;
   position: relative;
   margin-bottom: 10px;
@@ -24,5 +24,5 @@
 
 .beast-interaction img {
   width: 35px;
-  margin: 0 12px 10px 0;
+  margin: 15px 15px 0 0;
 }

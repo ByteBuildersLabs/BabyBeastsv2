@@ -9,20 +9,20 @@ import { Schema } from "./bindings";
  * @returns The model structure if found, otherwise undefined.
  */
 function useModel<N extends keyof Schema, M extends keyof Schema[N] & string>(
-    entityId: string,
-    model: `${N}-${M}`
+  entityId: string,
+  model: `${N}-${M}`,
 ): Schema[N][M] | undefined {
-    const [namespace, modelName] = model.split("-") as [N, M];
+  const [namespace, modelName] = model.split("-") as [N, M];
 
-    // Select only the specific model data for the given entityId
-    const modelData = useDojoStore(
-        (state) =>
-            state.entities[entityId]?.models?.[namespace]?.[modelName] as
-                | Schema[N][M]
-                | undefined
-    );
+  // Select only the specific model data for the given entityId
+  const modelData = useDojoStore(
+    (state) =>
+      state.entities[entityId]?.models?.[namespace]?.[modelName] as
+        | Schema[N][M]
+        | undefined,
+  );
 
-    return modelData;
+  return modelData;
 }
 
 export default useModel;

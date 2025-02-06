@@ -1,0 +1,70 @@
+.whispers {
+  height: 85px;
+  margin: 0 0 10px;
+}
+
+.whispers .messages {
+  padding: 0 15px 0;
+  text-align: center;
+  margin: 0;
+  color: #ececda;
+}
+
+.whispers .message span,
+.whispers-chat .message span {
+  display: none !important;
+}
+
+.whispers .message p {
+  padding: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  background: unset;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #ececda;
+  margin: 0;
+}
+
+.whispers-chat {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 247px;
+}
+
+.whispers-chat .messages {
+  overflow-y: scroll;
+  padding-bottom: 7px;
+}
+
+.whispers-chat .message {
+  border-radius: 15px;
+}
+
+.whispers-chat .chat-input {
+  padding-right: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.whispers-chat .chat-input .button {
+  width: 30%;
+}
+
+.whispers-chat .message .user {
+  color: #ececda;
+}
+
+.whispers-chat .message p {
+  font-size: 14px;
+  font-weight: bold;
+  background: unset;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #ececda;
+  margin-bottom: 5px;
+  padding: 15px 10px;
+}
+
+.whispers-chat .Me p {
+  background-color: rgba(209, 9, 61, 0.3);
+}

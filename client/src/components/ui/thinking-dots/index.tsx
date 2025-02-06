@@ -1,4 +1,4 @@
-import './main.css';
+import "./main.css";
 
 const ThinkingDots = () => (
   <div className="thinking-dots">

@@ -14,7 +14,11 @@
 
 .talk {
   position: relative;
-  background-image: linear-gradient(rgba(137, 26, 40, 0.5), rgba(137, 26, 40, 0.5)), url('../../../assets/img/background.png');
+  background-image: linear-gradient(
+      rgba(137, 26, 40, 0.5),
+      rgba(137, 26, 40, 0.5)
+    ),
+    url("../../../assets/img/background.png");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
@@ -45,7 +49,7 @@
 
 .talk-info h4 {
   margin: 0;
-  color: #ECECDA;
+  color: #ececda;
   font-size: 20px;
   font-weight: 700;
   margin: auto 0 0 10px;

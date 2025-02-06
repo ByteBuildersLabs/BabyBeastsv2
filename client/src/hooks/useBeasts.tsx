@@ -12,8 +12,9 @@ export const useBeast = (sdk: SDK<Schema>) => {
   const state = useDojoStore((state) => state);
 
   const entityId = useMemo(
-    () => account?.address ? getEntityIdFromKeys([BigInt(account.address)]) : null,
-    [account?.address]
+    () =>
+      account?.address ? getEntityIdFromKeys([BigInt(account.address)]) : null,
+    [account?.address],
   );
 
   const beastData = useModel(entityId ?? "", Models.Beast);
@@ -51,7 +52,7 @@ export const useBeast = (sdk: SDK<Schema>) => {
             state.updateEntity(response.data[0]);
           }
         },
-        { logging: true }
+        { logging: true },
       );
 
       unsubscribe = () => subscription.cancel();
@@ -90,11 +91,13 @@ export const useBeast = (sdk: SDK<Schema>) => {
               return;
             }
             if (resp.data) {
-              const beastsData = resp.data.map((entity) => entity.models.babybeasts.Beast);
+              const beastsData = resp.data.map(
+                (entity) => entity.models.babybeasts.Beast,
+              );
               setBeasts(beastsData);
               state.setEntities(resp.data);
             }
-          }
+          },
         );
       } catch (error) {
         console.error("Error querying entities:", error);

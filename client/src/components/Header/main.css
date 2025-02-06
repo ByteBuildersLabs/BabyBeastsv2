@@ -58,7 +58,7 @@
   background-color: #2c0001;
   z-index: 2;
   transition: all 0.25s;
-  background-image: url('../../assets/img/background.png');
+  background-image: url("../../assets/img/background.png");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;

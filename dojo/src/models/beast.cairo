@@ -1,26 +1,18 @@
+// Starknet import
 use starknet::ContractAddress;
+
+// Models import
+use babybeasts::models::beast_stats::{BeastStats};
+use babybeasts::models::beast_status::{BeastStatus};
 
 #[derive(Drop, Serde, Debug)]
 #[dojo::model]
 pub struct Beast {
     #[key]
+    pub player: ContractAddress, 
+    #[key]
     pub beast_id: u32,
-    pub player: ContractAddress,
     pub specie: u32,
-    pub is_alive: bool,
-    pub is_awake: bool,
-    pub hunger: u32,
-    pub max_hunger: u32,
-    pub energy: u32,
-    pub max_energy: u32,
-    pub happiness: u32,
-    pub max_happiness: u32,
-    pub hygiene: u32,
-    pub max_hygiene: u32,
-    pub attack: u32,
-    pub defense: u32,
-    pub speed: u32,
-    pub level: u32,
-    pub experience: u32,
-    pub next_level_experience: u32,
+    pub status: BeastStatus,
+    pub stats: BeastStats
 }

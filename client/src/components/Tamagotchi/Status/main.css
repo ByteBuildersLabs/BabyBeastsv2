@@ -1,4 +1,3 @@
-
 .status {
   display: flex;
   align-items: center;
@@ -7,7 +6,7 @@
   background-color: rgba(0, 0, 0, 0.3);
   padding: 20px;
   border-radius: 20px;
-  color: #ECECDA;
+  color: #ececda;
 }
 
 .status .item {
@@ -18,7 +17,7 @@
 }
 
 .status .item .pic {
-  background-image: url('../../../assets/img/back.png');
+  background-image: url("../../../assets/img/back.png");
   background-size: cover;
   width: 50px;
   height: 50px;

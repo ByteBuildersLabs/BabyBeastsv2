@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom';
-import { useEffect, useState, useRef } from 'react';
+import { Link } from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
 import { SDK } from "@dojoengine/sdk";
 import { Beast, Schema } from "../../dojo/bindings.ts";
-import { useBeast } from '../../hooks/useBeasts.tsx';
-import ControllerConnectButton from '../CartridgeController/ControllerConnectButton.tsx';
+import { useBeast } from "../../hooks/useBeasts.tsx";
+import ControllerConnectButton from "../CartridgeController/ControllerConnectButton.tsx";
 import initials from "../../data/initials.tsx";
-import './main.css';
+import "./main.css";
 
 function Bag({ sdk }: { sdk: SDK<Schema> }) {
   const { beasts } = useBeast(sdk);
@@ -37,7 +37,7 @@ function Bag({ sdk }: { sdk: SDK<Schema> }) {
     touchEndX.current = null;
   };
 
-  const getSlideContent = (beast: typeof beasts[0]) => (
+  const getSlideContent = (beast: (typeof beasts)[0]) => (
     <>
       <div className="beast-slide">
         <div className="beast">
@@ -52,7 +52,8 @@ function Bag({ sdk }: { sdk: SDK<Schema> }) {
               {initials[beast.specie - 1].name} Lvl {beast.level}
             </h4>
             <p>
-              Your are close to evolve {initials[beast.specie - 1].name}, keep playing to reach the next level
+              Your are close to evolve {initials[beast.specie - 1].name}, keep
+              playing to reach the next level
             </p>
           </div>
           <Link to={`/play/${beast.beast_id}`} className="button">
@@ -61,24 +62,23 @@ function Bag({ sdk }: { sdk: SDK<Schema> }) {
         </div>
       </div>
     </>
-
   );
 
   useEffect(() => {
-    const bodyElement = document.querySelector('.body') as HTMLElement;
+    const bodyElement = document.querySelector(".body") as HTMLElement;
     if (bodyElement) {
-      bodyElement.classList.remove('day', 'night');
-      bodyElement.style.backgroundSize = 'cover';
-      bodyElement.style.padding = '80px 15px 30px';
+      bodyElement.classList.remove("day", "night");
+      bodyElement.style.backgroundSize = "cover";
+      bodyElement.style.padding = "80px 15px 30px";
     }
   }, []);
 
   return (
     <div className="bag">
-      <div className='d-flex justify-content-between align-items-center'>
-        <p className={'title'}>
+      <div className="d-flex justify-content-between align-items-center">
+        <p className={"title"}>
           Collect them all!
-          <span className='d-block'>There are many species</span>
+          <span className="d-block">There are many species</span>
         </p>
         <ControllerConnectButton />
       </div>
@@ -101,7 +101,7 @@ function Bag({ sdk }: { sdk: SDK<Schema> }) {
             {beasts.map((_: any, index: number) => (
               <div
                 key={index}
-                className={`indicator ${currentSlide === index ? 'active' : ''}`}
+                className={`indicator ${currentSlide === index ? "active" : ""}`}
                 onClick={() => setCurrentSlide(index)}
               />
             ))}

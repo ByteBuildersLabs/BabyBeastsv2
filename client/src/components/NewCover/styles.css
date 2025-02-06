@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap");
 
 .venn-container {
   min-height: 100vh;
   width: 100%;
-  background-color: #1C1C1C;
+  background-color: #1c1c1c;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,18 +27,20 @@
   }
 }
 
-.venn-title, .connect-button, .venn-diagram {
+.venn-title,
+.connect-button,
+.venn-diagram {
   opacity: 0;
   transform: translateY(50px);
   animation: fade-in-up 1s ease-out forwards;
 }
 
 .venn-title {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 30px;
   font-weight: 700;
   text-align: center;
-  color: #ECECDA;
+  color: #ececda;
   margin-bottom: 2rem;
   animation-delay: 0.2s;
 }
@@ -75,21 +77,39 @@
 .circle-text {
   font-family: "Pixelify Sans", serif;
   text-anchor: middle;
-  fill: #ECECDA;
+  fill: #ececda;
   font-size: 20px;
   font-weight: 700;
 }
 
 @keyframes soft-glow {
-  0% { opacity: 0.6; filter: drop-shadow(0 0 3px pink); }
-  50% { opacity: 1; filter: drop-shadow(0 0 8px pink); }
-  100% { opacity: 0.6; filter: drop-shadow(0 0 3px pink); }
+  0% {
+    opacity: 0.6;
+    filter: drop-shadow(0 0 3px pink);
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 8px pink);
+  }
+  100% {
+    opacity: 0.6;
+    filter: drop-shadow(0 0 3px pink);
+  }
 }
 
 @keyframes subtle-twinkle {
-  0% { opacity: 0.7; filter: brightness(0.8); }
-  50% { opacity: 1; filter: brightness(1.2); }
-  100% { opacity: 0.7; filter: brightness(0.8); }
+  0% {
+    opacity: 0.7;
+    filter: brightness(0.8);
+  }
+  50% {
+    opacity: 1;
+    filter: brightness(1.2);
+  }
+  100% {
+    opacity: 0.7;
+    filter: brightness(0.8);
+  }
 }
 
 .star {
@@ -109,7 +129,7 @@
     width: 16rem;
     height: 16rem;
   }
-  
+
   .venn-title {
     font-size: 1.5rem;
   }
