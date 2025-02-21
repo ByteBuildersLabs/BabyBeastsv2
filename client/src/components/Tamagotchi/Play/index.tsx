@@ -3,6 +3,7 @@ import DoodleGame from '../../SkyJumpMiniGame/index.tsx';
 import './main.css';
 import toast, { Toaster } from 'react-hot-toast';
 import beastsDex from '../../../data/beastDex.tsx';
+import { ShareProgress } from '../../Twitter/ShareProgress.tsx';
 
 import doodleGameIcon from '../../../assets/img/doodle-game-icon.svg'; 
 
@@ -66,6 +67,7 @@ const Play = ({
   const [highScore, setHighScore] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showGameSelection, setShowGameSelection] = useState(true);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   // Update high score when the game or beast changes
   useEffect(() => {
@@ -128,6 +130,8 @@ const Play = ({
         duration: 3000
       });
     }
+
+    setIsShareModalOpen(true);
   };
 
   const returnToGameSelection = () => {
@@ -219,6 +223,17 @@ const Play = ({
             </button>
           </div>
           <Toaster position="bottom-center" />
+
+          {/* Agregamos el Modal de compartir */}
+          <ShareProgress
+            isOpen={isShareModalOpen}
+            onClose={() => setIsShareModalOpen(false)}
+            type="minigame"
+            minigameData={{
+              name: "Sky Jump",
+              score: currentScore
+            }}
+          />
         </div>
       );
     }
