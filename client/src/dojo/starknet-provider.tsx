@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from "react";
-import { sepolia } from "@starknet-react/chains";
+import { sepolia, mainnet } from "@starknet-react/chains";
 import {
     jsonRpcProvider,
     StarknetConfig,
@@ -7,6 +7,8 @@ import {
 } from "@starknet-react/core";
 import { dojoConfig } from "./dojoConfig";
 import cartridgeConnector from "../config/cartridgeConnector.tsx";
+
+const { VITE_PUBLIC_DEPLOY_TYPE } = import.meta.env;
 
 export default function StarknetProvider({ children }: PropsWithChildren) {
     const provider = jsonRpcProvider({
@@ -16,7 +18,7 @@ export default function StarknetProvider({ children }: PropsWithChildren) {
     return (
         <StarknetConfig
             autoConnect
-            chains={[sepolia]}
+            chains={[VITE_PUBLIC_DEPLOY_TYPE === "mainnet" ? mainnet : sepolia]}
             connectors={[cartridgeConnector]}
             explorer={starkscan}
             provider={provider}
